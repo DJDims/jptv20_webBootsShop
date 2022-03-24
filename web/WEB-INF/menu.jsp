@@ -13,28 +13,28 @@
             <ul class="navbar-nav me-auto">
                 <c:choose>
                     <c:when test="${topRole eq 'ADMINISTRATOR'}">
-                        <li class="nav-item"><a class="nav-link active" href="#">Назначить роль</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Назначить роль</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Смотреть статистику</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="#">Добавить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Добавить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Список товаров</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="#">Купить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'SELLER'}">
-                        <li class="nav-item"><a class="nav-link active" href="#">Добавить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Добавить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Список товаров</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="#">Купить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'CUSTOMER'}">
-                        <li class="nav-item"><a class="nav-link active" href="#">Купить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
                     </c:when>
                     <c:when test="${topRole eq NULL}">
-                        <li class="nav-item"><a class="nav-link active" href="#">Посмотреть каталог товаров</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Посмотреть каталог товаров</a></li>
                     </c:when>
                 </c:choose>
             </ul>
