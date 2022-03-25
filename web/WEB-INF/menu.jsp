@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Магазин обуви</a>
+        <a class="navbar-brand" href="listProducts">Магазин обуви</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -13,24 +13,24 @@
             <ul class="navbar-nav me-auto">
                 <c:choose>
                     <c:when test="${topRole eq 'ADMINISTRATOR'}">
-                        <li class="nav-item"><a class="nav-link" href="#">Назначить роль</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showChangeRole">Назначить роль</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Смотреть статистику</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Добавить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Редактировать данные</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'SELLER'}">
                         <li class="nav-item"><a class="nav-link" href="#">Добавить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Редактировать данные</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'CUSTOMER'}">
                         <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Редактировать данные</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
                     </c:when>
                     <c:when test="${topRole eq NULL}">

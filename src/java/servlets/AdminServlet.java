@@ -5,9 +5,15 @@
  */
 package servlets;
 
+import enitys.Role;
 import enitys.User;
+import facades.RoleFacade;
+import facades.UserFacade;
 import facades.UserRolesFacade;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,10 +27,13 @@ import javax.servlet.http.HttpSession;
  * @author pupil
  */
 @WebServlet(name = "adminServlet", urlPatterns = {
-    
+    "/showChangeRole",
+    "/changeRole"
 })
-public class adminServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
     @EJB UserRolesFacade userRolesFacade;
+    @EJB UserFacade userFacade;
+    @EJB RoleFacade roleFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,7 +58,31 @@ public class adminServlet extends HttpServlet {
         
         String path = request.getServletPath();
         switch(path) {
-            
+            case "/showChangeRole":
+                Map<User, String> mapUsers = new HashMap<>();
+                List<User> users = userFacade.findAll();
+                for (User user : users) {
+                    if (user.getId() == 1) {    //Чтобы админ сам себя случайно не выпилил
+                        continue;
+                    }
+                    String topRole = userRolesFacade.getTopRole(user);
+                    mapUsers.put(user, topRole);
+                }
+                request.setAttribute("mapUsers", mapUsers);
+                List<Role> roles = roleFacade.findAll();
+                request.setAttribute("roles", roles);
+                request.getRequestDispatcher("/WEB-INF/changeRole.jsp").forward(request, response);
+                break;
+                
+            case "/changeRole":
+                String userId = request.getParameter("selectUser");
+                String roleId = request.getParameter("selectRole");
+                User u = userFacade.find(Long.parseLong(userId));
+                Role r = roleFacade.find(Long.parseLong(roleId));
+                userRolesFacade.setRoleToUser(r, u);
+                request.setAttribute("info", "Роль назначена");
+                request.getRequestDispatcher("/showChangeRole").forward(request, response);
+                break;
         }
     }
 

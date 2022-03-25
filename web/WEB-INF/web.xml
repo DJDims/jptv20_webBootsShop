@@ -13,11 +13,12 @@
             <display-name>Template1</display-name>
             <url-pattern>/uploadFile.jsp</url-pattern>
             <url-pattern>/showLogin.jsp</url-pattern>
-            <url-pattern>/WEB-INF/changeRole.jsp</url-pattern>
             <url-pattern>/showEditUser.jsp</url-pattern>
+            <url-pattern>/showRegistration.jsp</url-pattern>
+            <url-pattern>/WEB-INF/changeRole.jsp</url-pattern>
             <url-pattern>/WEB-INF/listProducts.jsp</url-pattern>
             <url-pattern>/WEB-INF/addProduct.jsp</url-pattern>
-            <url-pattern>/showRegistration.jsp</url-pattern>
+            <url-pattern>/WEB-INF/showEditUser.jsp</url-pattern>
             <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>

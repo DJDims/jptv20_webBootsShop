@@ -2,6 +2,7 @@
 package servlets;
 
 import enitys.User;
+import facades.UserFacade;
 import facades.UserRolesFacade;
 import java.io.IOException;
 import javax.ejb.EJB;
@@ -14,10 +15,13 @@ import javax.servlet.http.HttpSession;
 
 
 @WebServlet(name = "CustomerServlet", urlPatterns = {
-    "/listProducts"
+    "/listProducts",
+    "/showEditUser",
+    "/editUser"
 })
 public class CustomerServlet extends HttpServlet {
     @EJB private UserRolesFacade userRolesFacade;
+    @EJB private UserFacade userFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,6 +47,29 @@ public class CustomerServlet extends HttpServlet {
         switch(path) {
             case "/listProducts":
                 request.getRequestDispatcher("/WEB-INF/listProducts.jsp").forward(request, response);
+                break;
+            
+            case "/showEditUser":
+                request.setAttribute("firstName", authUser.getFirstName());
+                request.setAttribute("sureName", authUser.getSureName());
+                request.setAttribute("phone", authUser.getPhone());
+                request.setAttribute("login", authUser.getLogin());
+                request.getRequestDispatcher("/WEB-INF/showEditUser.jsp").forward(request, response);
+                break;
+                
+            case "/editUser":
+                String firstName = request.getParameter("firstName");
+                String sureName= request.getParameter("sureName");
+                String phone = request.getParameter("phone");
+                String login = request.getParameter("login");
+                if (firstName.isEmpty() || sureName.isEmpty() || phone.isEmpty() || login.isEmpty()) {
+                    request.setAttribute("firstName", firstName);
+                    request.setAttribute("sureName", sureName);
+                    request.setAttribute("phone", phone);
+                    request.setAttribute("login", login);
+                    request.setAttribute("info", "Заполните все поля!");
+                    request.getRequestDispatcher("/WEB-INF/showEditUser.jsp").forward(request, response);
+                }
                 break;
         }
     }

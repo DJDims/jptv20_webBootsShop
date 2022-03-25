@@ -1,16 +1,19 @@
 
 package facades;
 
+import enitys.Role;
 import enitys.User;
 import enitys.UserRoles;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
 public class UserRolesFacade extends AbstractFacade<UserRoles> {
-
+    @EJB private RoleFacade roleFacade;
+    
     @PersistenceContext(unitName = "JPTV20_webBootsShopPU")
     private EntityManager em;
 
@@ -35,8 +38,56 @@ public class UserRolesFacade extends AbstractFacade<UserRoles> {
                 .setParameter("user", user)
                 .getResultList();
         if(listRoleNames.contains("ADMINISTRATOR"))return "ADMINISTRATOR";
-        if(listRoleNames.contains("MANAGER"))return "MANAGER";
-        if(listRoleNames.contains("READER"))return "READER";
+        if(listRoleNames.contains("SELLER"))return "SELLER";
+        if(listRoleNames.contains("CUSTOMER"))return "CUSTOMER";
         return null;
+    }
+    
+    public void setRoleToUser(Role role, User user) {
+        // логика метода
+        removeAllUserRoles(user);
+        UserRoles userRoles = null;
+        if("ADMINISTRATOR".equals(role.getRoleName())){
+            Role roleREADER = roleFacade.findRoleByRoleName("CUSTOMER");
+            userRoles = new UserRoles();
+            userRoles.setRole(roleREADER);
+            userRoles.setUser(user);
+            this.create(userRoles);
+            Role roleMANAGER = roleFacade.findRoleByRoleName("SELLER");
+            userRoles = new UserRoles();
+            userRoles.setRole(roleMANAGER);
+            userRoles.setUser(user);
+            this.create(userRoles);
+            Role roleADMINISTRATOR = roleFacade.findRoleByRoleName("ADMINISTRATOR");
+            userRoles = new UserRoles();
+            userRoles.setRole(roleADMINISTRATOR);
+            userRoles.setUser(user);
+            this.create(userRoles);
+        }
+        if("SELLER".equals(role.getRoleName())){
+            Role roleREADER = roleFacade.findRoleByRoleName("CUSTOMER");
+            userRoles = new UserRoles();
+            userRoles.setRole(roleREADER);
+            userRoles.setUser(user);
+            this.create(userRoles);
+            Role roleMANAGER = roleFacade.findRoleByRoleName("SELLER");
+            userRoles = new UserRoles();
+            userRoles.setRole(roleMANAGER);
+            userRoles.setUser(user);
+            this.create(userRoles);
+        }
+        if("CUSTOMER".equals(role.getRoleName())){
+            Role roleREADER = roleFacade.findRoleByRoleName("CUSTOMER");
+            userRoles = new UserRoles();
+            userRoles.setRole(roleREADER);
+            userRoles.setUser(user);
+            this.create(userRoles);
+        }
+        
+    }
+    private void removeAllUserRoles(User user){
+        em.createQuery("DELETE FROM UserRoles ur WHERE ur.user = :user")
+                .setParameter("user", user)
+                .executeUpdate();
     }
 }
