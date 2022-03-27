@@ -22,6 +22,7 @@ public class User implements Serializable {
     private String firstName;
     private String sureName;
     private String phone;
+    private double wallet;
     private String salt;
     @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Product> listProducts;
@@ -77,6 +78,14 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
+    public double getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(double wallet) {
+        this.wallet = wallet;
+    }
+    
     public String getSalt() {
         return salt;
     }
@@ -95,20 +104,21 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName + ", sureName=" + sureName + ", phone=" + phone + ", salt=" + salt + ", listProducts=" + listProducts + '}';
+        return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName + ", sureName=" + sureName + ", phone=" + phone + ", wallet=" + wallet + ", salt=" + salt + ", listProducts=" + listProducts + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.login);
-        hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.firstName);
-        hash = 97 * hash + Objects.hashCode(this.sureName);
-        hash = 97 * hash + Objects.hashCode(this.phone);
-        hash = 97 * hash + Objects.hashCode(this.salt);
-        hash = 97 * hash + Objects.hashCode(this.listProducts);
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.login);
+        hash = 83 * hash + Objects.hashCode(this.password);
+        hash = 83 * hash + Objects.hashCode(this.firstName);
+        hash = 83 * hash + Objects.hashCode(this.sureName);
+        hash = 83 * hash + Objects.hashCode(this.phone);
+        hash = 83 * hash + (int) (Double.doubleToLongBits(this.wallet) ^ (Double.doubleToLongBits(this.wallet) >>> 32));
+        hash = 83 * hash + Objects.hashCode(this.salt);
+        hash = 83 * hash + Objects.hashCode(this.listProducts);
         return hash;
     }
 
@@ -124,6 +134,9 @@ public class User implements Serializable {
             return false;
         }
         final User other = (User) obj;
+        if (Double.doubleToLongBits(this.wallet) != Double.doubleToLongBits(other.wallet)) {
+            return false;
+        }
         if (!Objects.equals(this.login, other.login)) {
             return false;
         }
@@ -150,6 +163,5 @@ public class User implements Serializable {
         }
         return true;
     }
-    
 
 }

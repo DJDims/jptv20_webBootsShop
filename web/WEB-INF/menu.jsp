@@ -15,26 +15,27 @@
                     <c:when test="${topRole eq 'ADMINISTRATOR'}">
                         <li class="nav-item"><a class="nav-link" href="showChangeRole">Назначить роль</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Смотреть статистику</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Добавить товар</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Список товаров</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showAddProduct">Добавить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="listProducts">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showAddMoney">Добавить денег</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'SELLER'}">
-                        <li class="nav-item"><a class="nav-link" href="#">Добавить товар</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Список товаров</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showAddProduct">Добавить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="listProducts">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showAddMoney">Добавить денег</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'CUSTOMER'}">
-                        <li class="nav-item"><a class="nav-link" href="#">Купить товар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="listProducts">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showAddMoney">Добавить денег</a></li>
                     </c:when>
                     <c:when test="${topRole eq NULL}">
-                        <li class="nav-item"><a class="nav-link" href="#">Посмотреть каталог товаров</a></li>
+                        <li class="nav-item"><a class="nav-link" href="listProducts">Посмотреть каталог товаров</a></li>
                     </c:when>
                 </c:choose>
             </ul>

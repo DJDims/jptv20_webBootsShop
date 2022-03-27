@@ -1,15 +1,11 @@
 
 package servlets;
 
-import enitys.Role;
+import enitys.Product;
 import enitys.User;
-import facades.RoleFacade;
-import facades.UserFacade;
+import facades.ProductFacade;
 import facades.UserRolesFacade;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,15 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "adminServlet", urlPatterns = {
-    "/showChangeRole",
-    "/changeRole"
+@WebServlet(name = "SellerServlet", urlPatterns = {
+    "/showAddProduct",
+    "/addProduct"
 })
-public class AdminServlet extends HttpServlet {
+public class SellerServlet extends HttpServlet {
     @EJB UserRolesFacade userRolesFacade;
-    @EJB UserFacade userFacade;
-    @EJB RoleFacade roleFacade;
-
+    @EJB ProductFacade productFacade;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,7 +37,7 @@ public class AdminServlet extends HttpServlet {
             request.setAttribute("info", "Авторизуйтесь!");
             request.getRequestDispatcher("/showLogin").forward(request, response);
         }
-        if(!userRolesFacade.isRole("ADMINISTRATOR", authUser)){
+        if(!userRolesFacade.isRole("SELLER", authUser)){
             request.setAttribute("info", "У вас нет прав!");
             request.getRequestDispatcher("/showLogin").forward(request, response);
         }
@@ -50,30 +45,39 @@ public class AdminServlet extends HttpServlet {
         
         String path = request.getServletPath();
         switch(path) {
-            case "/showChangeRole":
-                Map<User, String> mapUsers = new HashMap<>();
-                List<User> users = userFacade.findAll();
-                for (User user : users) {
-                    if (user.getId() == 1) {    //Чтобы админ сам себя случайно не выпилил
-                        continue;
-                    }
-                    String topRole = userRolesFacade.getTopRole(user);
-                    mapUsers.put(user, topRole);
-                }
-                request.setAttribute("mapUsers", mapUsers);
-                List<Role> roles = roleFacade.findAll();
-                request.setAttribute("roles", roles);
-                request.getRequestDispatcher("/WEB-INF/changeRole.jsp").forward(request, response);
+            case "/showAddProduct":
+                request.getRequestDispatcher("/WEB-INF/addProduct.jsp").forward(request, response);
                 break;
                 
-            case "/changeRole":
-                String userId = request.getParameter("selectUser");
-                String roleId = request.getParameter("selectRole");
-                User u = userFacade.find(Long.parseLong(userId));
-                Role r = roleFacade.find(Long.parseLong(roleId));
-                userRolesFacade.setRoleToUser(r, u);
-                request.setAttribute("info", "Роль назначена");
-                request.getRequestDispatcher("/showChangeRole").forward(request, response);
+            case "/addProduct":
+                String name = request.getParameter("name");
+                String description = request.getParameter("description");
+                String size = request.getParameter("size");
+                String price = request.getParameter("price");
+                String quantity = request.getParameter("quantity");
+                
+                if (name.isEmpty() || description.isEmpty() || size.isEmpty() || price.isEmpty() || quantity.isEmpty()) {
+                    request.setAttribute("name", name);
+                    request.setAttribute("desctiption", description);
+                    request.setAttribute("size", size);
+                    request.setAttribute("price", price);
+                    request.setAttribute("quantity", quantity);
+                    request.setAttribute("info", "Заполните все поля!");
+                    request.getRequestDispatcher("/showAddProduct").forward(request, response);
+                    break;
+                }
+                
+                Product product = new Product();
+                product.setTitle(name);
+                product.setDescription(description);
+                product.setSize(Integer.parseInt(size));
+                product.setPrice(Double.parseDouble(price));
+                product.setQuantity(Integer.parseInt(quantity));
+                
+                productFacade.create(product);
+                
+                request.setAttribute("info", "Товар успешно добавлен");
+                request.getRequestDispatcher("/showAddProduct").forward(request, response);
                 break;
         }
     }

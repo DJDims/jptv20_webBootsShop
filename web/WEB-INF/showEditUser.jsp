@@ -7,15 +7,15 @@
                 <div class="card-header">Личные данные</div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="col-form-label mt-4">Имя</label>
+                        <label class="col-form-label mt-1">Имя</label>
                         <input type="text" class="form-control" name="firstName" value="${firstName}">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4">Фамилия</label>
+                        <label class="col-form-label mt-1">Фамилия</label>
                         <input type="text" class="form-control" name="sureName" value="${sureName}">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4">Телефон</label>
+                        <label class="col-form-label mt-1">Телефон</label>
                         <input type="text" class="form-control" name="phone" value="${phone}">
                     </div>
                 </div>
@@ -24,20 +24,20 @@
                 <div class="card-header">Данные аккаунта</div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label class="col-form-label mt-4">Логин</label>
+                        <label class="col-form-label mt-1">Логин</label>
                         <input type="text" class="form-control" name="login" value="${login}">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4">Старый пароль</label>
-                        <input type="text" class="form-control" name="oldPassword">
+                        <label class="col-form-label mt-1">Старый пароль</label>
+                        <input type="password" class="form-control" name="oldPassword">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4">Новый пароль</label>
-                        <input type="text" class="form-control" name="newPassword1">
+                        <label class="col-form-label mt-1">Новый пароль</label>
+                        <input type="password" class="form-control" name="newPassword1">
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4">Подтвердите новый пароль</label>
-                        <input type="text" class="form-control" name="newPassword2">
+                        <label class="col-form-label mt-1">Подтвердите новый пароль</label>
+                        <input type="password" class="form-control" name="newPassword2">
                     </div>
 
                 </div>

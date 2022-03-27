@@ -19,6 +19,8 @@
             <url-pattern>/WEB-INF/listProducts.jsp</url-pattern>
             <url-pattern>/WEB-INF/addProduct.jsp</url-pattern>
             <url-pattern>/WEB-INF/showEditUser.jsp</url-pattern>
+            <url-pattern>/WEB-INF/addMoney.jsp</url-pattern>
+            <url-pattern>/WEB-INF/buyProduct.jsp</url-pattern>
             <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
