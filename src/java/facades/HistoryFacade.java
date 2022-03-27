@@ -2,6 +2,7 @@
 package facades;
 
 import enitys.History;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,4 +22,11 @@ public class HistoryFacade extends AbstractFacade<History> {
         super(History.class);
     }
 
+    public List<History> findAllForUserByLogin(String login){
+        try {
+            return em.createQuery("SELECT h FROM History h WHERE h.user.login=:login").setParameter("login", login).getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

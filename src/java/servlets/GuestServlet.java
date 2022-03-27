@@ -4,6 +4,7 @@ package servlets;
 import enitys.Product;
 import enitys.User;
 import facades.ProductFacade;
+import facades.UserRolesFacade;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 })
 public class GuestServlet extends HttpServlet {
     @EJB private ProductFacade productFacade;
+    @EJB private UserRolesFacade userRolesFacade;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,13 +29,13 @@ public class GuestServlet extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         User authUser = (User) session.getAttribute("authUser");
+        session.setAttribute("topRole", userRolesFacade.getTopRole(authUser));
         
         String path = request.getServletPath();
         switch(path) {
             case "/listProducts":
                 List<Product> products = productFacade.findAll();
                 request.setAttribute("products", products);
-                request.setAttribute("authUser", authUser);
                 request.getRequestDispatcher("/WEB-INF/listProducts.jsp").forward(request, response);
                 break;
         }

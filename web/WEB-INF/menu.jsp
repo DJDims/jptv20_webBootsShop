@@ -18,20 +18,20 @@
                         <li class="nav-item"><a class="nav-link" href="showAddProduct">Добавить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="listProducts">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showMyPurchases">Посмотреть свои покупки</a></li>
                         <li class="nav-item"><a class="nav-link" href="showAddMoney">Добавить денег</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'SELLER'}">
                         <li class="nav-item"><a class="nav-link" href="showAddProduct">Добавить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="listProducts">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showMyPurchases">Посмотреть свои покупки</a></li>
                         <li class="nav-item"><a class="nav-link" href="showAddMoney">Добавить денег</a></li>
                     </c:when>
                     <c:when test="${topRole eq 'CUSTOMER'}">
                         <li class="nav-item"><a class="nav-link" href="listProducts">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Посмотреть свои покупки</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showMyPurchases">Посмотреть свои покупки</a></li>
                         <li class="nav-item"><a class="nav-link" href="showAddMoney">Добавить денег</a></li>
                     </c:when>
                     <c:when test="${topRole eq NULL}">

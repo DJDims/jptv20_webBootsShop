@@ -16,7 +16,9 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "SellerServlet", urlPatterns = {
     "/showAddProduct",
-    "/addProduct"
+    "/addProduct",
+    "/showEditProduct",
+    "/editProduct",
 })
 public class SellerServlet extends HttpServlet {
     @EJB UserRolesFacade userRolesFacade;
@@ -78,6 +80,42 @@ public class SellerServlet extends HttpServlet {
                 
                 request.setAttribute("info", "Товар успешно добавлен");
                 request.getRequestDispatcher("/showAddProduct").forward(request, response);
+                break;
+                
+            case "/showEditProduct":
+                String productId = request.getParameter("id");
+                request.setAttribute("productId", productId);
+                request.getRequestDispatcher("/WEB-INF/editProduct.jsp").forward(request, response);
+                break;
+                
+            case "/editProduct":
+                productId = request.getParameter("id");
+                name = request.getParameter("name");
+                description = request.getParameter("description");
+                size = request.getParameter("size");
+                price = request.getParameter("price");
+                quantity = request.getParameter("quantity");
+                
+                if (name.isEmpty() || description.isEmpty() || size.isEmpty() || price.isEmpty() || quantity.isEmpty()) {
+                    request.setAttribute("name", name);
+                    request.setAttribute("desctiption", description);
+                    request.setAttribute("size", size);
+                    request.setAttribute("price", price);
+                    request.setAttribute("quantity", quantity);
+                    request.setAttribute("info", "Заполните все поля!");
+                    request.getRequestDispatcher("/showEditProduct").forward(request, response);
+                    break;
+                }
+                
+                product = productFacade.find(Long.parseLong(productId));
+                product.setTitle(name);
+                product.setDescription(description);
+                product.setSize(Integer.parseInt(size));
+                product.setPrice(Double.parseDouble(price));
+                product.setQuantity(Integer.parseInt(quantity));
+                productFacade.edit(product);
+                request.setAttribute("info", "Товар успешно обновлен");
+                request.getRequestDispatcher("/showEditProduct").forward(request, response);
                 break;
         }
     }

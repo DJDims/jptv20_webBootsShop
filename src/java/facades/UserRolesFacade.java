@@ -44,7 +44,6 @@ public class UserRolesFacade extends AbstractFacade<UserRoles> {
     }
     
     public void setRoleToUser(Role role, User user) {
-        // логика метода
         removeAllUserRoles(user);
         UserRoles userRoles = null;
         if("ADMINISTRATOR".equals(role.getRoleName())){

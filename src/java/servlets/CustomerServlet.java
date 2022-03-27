@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +29,7 @@ import tools.PasswordProtector;
     "/addMoney",
     "/showBuyProduct",
     "/buyProduct",
+    "/showMyPurchases"
 })
 public class CustomerServlet extends HttpServlet {
     @EJB private UserRolesFacade userRolesFacade;
@@ -133,17 +135,28 @@ public class CustomerServlet extends HttpServlet {
                 History history = new History();
                 productId = request.getParameter("id");
                 product = productFacade.find(Long.parseLong(productId));
-                history.setProduct(product);
-                history.setUser(authUser);
-                history.setPurchaseDate(localdateToDate(LocalDate.now()));
-                historyFacade.edit(history);
-                authUser.setWallet(authUser.getWallet() - product.getPrice());
-                userFacade.edit(authUser);
-                product.setQuantity(product.getQuantity() - 1);
-                productFacade.edit(product);
+                if (authUser.getWallet() >= product.getPrice()) {
+                    history.setProduct(product);
+                    history.setUser(authUser);
+                    history.setPurchaseDate(localdateToDate(LocalDate.now()));
+                    historyFacade.edit(history);
+                    authUser.setWallet(authUser.getWallet() - product.getPrice());
+                    userFacade.edit(authUser);
+                    product.setQuantity(product.getQuantity() - 1);
+                    productFacade.edit(product);
+
+                    request.setAttribute("info", "Товар успешно куплен");
+                    request.getRequestDispatcher("/listProducts").forward(request, response);
+                } else {
+                    request.setAttribute("info", "На счету недостаточно недег!");
+                    request.getRequestDispatcher("/listProducts").forward(request, response);
+                }
+                break;
                 
-                request.setAttribute("info", "Товар успешно куплен");
-                request.getRequestDispatcher("/listProducts").forward(request, response);
+            case "/showMyPurchases":
+                List<History> historys = historyFacade.findAllForUserByLogin(authUser.getLogin());
+                request.setAttribute("historys", historys);
+                request.getRequestDispatcher("/WEB-INF/myPurchases.jsp").forward(request, response);
                 break;
         }
     }

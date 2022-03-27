@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "adminServlet", urlPatterns = {
     "/showChangeRole",
-    "/changeRole"
+    "/changeRole",
 })
 public class AdminServlet extends HttpServlet {
     @EJB UserRolesFacade userRolesFacade;
