@@ -12,7 +12,7 @@
                             <p class="card-text">${history.product.description}</p>
                             <p class="card-text">Размер: ${history.product.size}</p>
                             <p class="card-text">Цена: ${history.product.price}€</p>
-                            <p class="card-text">Дата покупки: ${history.purchaseDate}€</p>
+                            <p class="card-text">Дата покупки: ${history.purchaseDate}</p>
                         </div>
                     </div>
                 </div>   

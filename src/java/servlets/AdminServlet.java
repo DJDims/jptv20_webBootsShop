@@ -1,14 +1,20 @@
 
 package servlets;
 
+import enitys.History;
 import enitys.Role;
 import enitys.User;
+import facades.HistoryFacade;
 import facades.RoleFacade;
 import facades.UserFacade;
 import facades.UserRolesFacade;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -21,11 +27,15 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "adminServlet", urlPatterns = {
     "/showChangeRole",
     "/changeRole",
+    "/showStatistic"
 })
 public class AdminServlet extends HttpServlet {
     @EJB UserRolesFacade userRolesFacade;
     @EJB UserFacade userFacade;
     @EJB RoleFacade roleFacade;
+    @EJB HistoryFacade historyFacade;
+    
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -74,6 +84,25 @@ public class AdminServlet extends HttpServlet {
                 userRolesFacade.setRoleToUser(r, u);
                 request.setAttribute("info", "Роль назначена");
                 request.getRequestDispatcher("/showChangeRole").forward(request, response);
+                break;
+                
+            case "/showStatistic":
+                String month = LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.US);
+                int monthInt = LocalDate.now().getMonth().getValue();
+                List<History> historys = historyFacade.findAll();
+                List<History> monthHistorys = historyFacade.findAllForMonth(monthInt);
+                double monthIncome = 0;
+                double allIncome = 0;
+                for (History history : monthHistorys) {
+                    monthIncome += history.getProduct().getPrice();
+                }
+                for (History history : historys) {
+                    allIncome += history.getProduct().getPrice();
+                }
+                request.setAttribute("month", month);
+                request.setAttribute("monthIncome", monthIncome);
+                request.setAttribute("allIncome", df.format(allIncome));
+                request.getRequestDispatcher("/WEB-INF/statistic.jsp").forward(request, response);
                 break;
         }
     }

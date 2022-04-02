@@ -9,7 +9,7 @@
                     <div class="card bg-light mb-3" style="max-width: 20rem;">
                         <div class="card-body">
                             <h4 class="card-title">${product.title}</h4>
-                            <p class="card-text">${product.description}</p>
+                            <p class="card-text" style="text-align: justify">${product.description}</p>
                             <p class="card-text">Размер: ${product.size}</p>
                             <c:if test="${product.quantity != 0}">
                                 <p class="card-text">Цена: ${product.price}€</p>

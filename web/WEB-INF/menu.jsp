@@ -14,7 +14,7 @@
                 <c:choose>
                     <c:when test="${topRole eq 'ADMINISTRATOR'}">
                         <li class="nav-item"><a class="nav-link" href="showChangeRole">Назначить роль</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Смотреть статистику</a></li>
+                        <li class="nav-item"><a class="nav-link" href="showStatistic">Смотреть статистику</a></li>
                         <li class="nav-item"><a class="nav-link" href="showAddProduct">Добавить товар</a></li>
                         <li class="nav-item"><a class="nav-link" href="listProducts">Список товаров</a></li>
                         <li class="nav-item"><a class="nav-link" href="showEditUser">Редактировать данные</a></li>
