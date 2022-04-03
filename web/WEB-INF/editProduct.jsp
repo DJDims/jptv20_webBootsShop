@@ -7,11 +7,11 @@
             <h2 class="my-3 w-100 d-flex justify-content-center">Изменить товар</h2>
             <div class="form-group">
                 <label class="form-label mt-2 mx-2">Название</label>
-                <input type="text" class="form-control" name="name" value="${product.name}">
+                <input type="text" class="form-control" name="name" value="${product.title}">
             </div>
             <div class="form-group">
                 <label class="form-label mt-2 mx-2">Описание</label>
-                <textarea class="form-control" name="description" rows="3" value="${product.description}"></textarea>
+                <textarea class="form-control" name="description" rows="3" value="">${product.description}</textarea>
             </div>
             <div class="form-group">
                 <label class="form-label mt-2 mx-2">Размер</label>

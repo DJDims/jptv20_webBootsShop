@@ -84,7 +84,9 @@ public class SellerServlet extends HttpServlet {
                 
             case "/showEditProduct":
                 String productId = request.getParameter("id");
-                request.setAttribute("productId", productId);
+                product = productFacade.find(Long.parseLong(productId));
+                request.setAttribute("id", productId);
+                request.setAttribute("product", product);
                 request.getRequestDispatcher("/WEB-INF/editProduct.jsp").forward(request, response);
                 break;
                 
@@ -115,7 +117,7 @@ public class SellerServlet extends HttpServlet {
                 product.setQuantity(Integer.parseInt(quantity));
                 productFacade.edit(product);
                 request.setAttribute("info", "Товар успешно обновлен");
-                request.getRequestDispatcher("/showEditProduct").forward(request, response);
+                request.getRequestDispatcher("/listProducts").forward(request, response);
                 break;
         }
     }
