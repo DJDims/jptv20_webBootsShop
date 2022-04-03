@@ -27,7 +27,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "adminServlet", urlPatterns = {
     "/showChangeRole",
     "/changeRole",
-    "/showStatistic"
+    "/showStatistic",
+    "/showUsersList"
 })
 public class AdminServlet extends HttpServlet {
     @EJB UserRolesFacade userRolesFacade;
@@ -103,6 +104,12 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("monthIncome", monthIncome);
                 request.setAttribute("allIncome", df.format(allIncome));
                 request.getRequestDispatcher("/WEB-INF/statistic.jsp").forward(request, response);
+                break;
+                
+            case "/showUsersList":
+                List<User> usersList = userFacade.findAll();
+                request.setAttribute("users", usersList);
+                request.getRequestDispatcher("/WEB-INF/usersList.jsp").forward(request, response);
                 break;
         }
     }
