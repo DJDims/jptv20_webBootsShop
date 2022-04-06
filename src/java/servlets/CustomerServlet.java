@@ -69,6 +69,7 @@ public class CustomerServlet extends HttpServlet {
                 break;
                 
             case "/editUser":
+                boolean changePassword = false;
                 String firstName = request.getParameter("firstName");
                 String sureName= request.getParameter("sureName");
                 String phone = request.getParameter("phone");
@@ -93,11 +94,22 @@ public class CustomerServlet extends HttpServlet {
                         request.getRequestDispatcher("/showEditUser").forward(request, response);
                         break;
                     }
+                    if ("".equals(newPassword1) || "".equals(newPassword2)) {
+                        request.setAttribute("info", "Заполните поля паролей");
+                        request.getRequestDispatcher("/showEditUser").forward(request, response);
+                        break;
+                    }
                     if (!newPassword1.equals(newPassword2)) {
                         request.setAttribute("info", "Новые пароли не совпадают");
                         request.getRequestDispatcher("/showEditUser").forward(request, response);
                         break;
                     }
+                    if (newPassword1.equals(oldPassword)) {
+                        request.setAttribute("info", "Новый пароль не может совпадать со старым");
+                        request.getRequestDispatcher("/showEditUser").forward(request, response);
+                        break;
+                    }
+                    changePassword = true;
                     authUser.setPassword(passwordProtector.getProtectedPassword(newPassword1, authUser.getSalt()));
                 }
                 
@@ -106,8 +118,13 @@ public class CustomerServlet extends HttpServlet {
                 authUser.setPhone(phone);
                 authUser.setLogin(login);
                 userFacade.edit(authUser);
-                
+                if (changePassword) {
+                    request.setAttribute("info", "Данные успешно обновлены");
+                    request.getRequestDispatcher("/logout").forward(request, response);
+                    break;
+                }
                 request.setAttribute("info", "Данные успешно обновлены");
+                request.setAttribute("passwordChanged", changePassword);
                 request.getRequestDispatcher("/showEditUser").forward(request, response);
                 break;
                 
