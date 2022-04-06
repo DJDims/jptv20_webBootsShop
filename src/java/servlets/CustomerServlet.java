@@ -119,12 +119,12 @@ public class CustomerServlet extends HttpServlet {
                 authUser.setLogin(login);
                 userFacade.edit(authUser);
                 if (changePassword) {
-                    request.setAttribute("info", "Данные успешно обновлены");
+                    session.setAttribute("changePassword", "true");
                     request.getRequestDispatcher("/logout").forward(request, response);
                     break;
                 }
+                request.setAttribute("changePassword", "false");
                 request.setAttribute("info", "Данные успешно обновлены");
-                request.setAttribute("passwordChanged", changePassword);
                 request.getRequestDispatcher("/showEditUser").forward(request, response);
                 break;
                 

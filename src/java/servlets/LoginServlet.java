@@ -119,8 +119,14 @@ public class LoginServlet extends HttpServlet {
             case "/logout":
                 session = request.getSession();
                 if (session != null) {
+                    String a = (String) session.getAttribute("changePassword");
                     session.invalidate();
-                    request.setAttribute("info", "Вы вышли");
+                    if (a.equals("true")) {
+                        request.setAttribute("info", "Пароль был изменен. Авторизируйтесь заново.");
+                        
+                    } else {
+                        request.setAttribute("info", "Вы вышли");
+                    }
                 }
                 request.getRequestDispatcher("/showLogin").forward(request, response);
                 break;
