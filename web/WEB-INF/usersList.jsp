@@ -17,3 +17,14 @@
         </div>
     </div>
 </div>
+
+<!--<div class="w-100 d-flex justify-content-center">               
+    <div class="form-group">
+        <label class="form-label mt-4">Example select</label>
+        <select class="form-select" id="exampleSelect1">
+            <%--<c:forEach var="user" items="${users}">--%>
+                <option>${user.login}</option>
+            <%--</c:forEach>--%>
+        </select>
+    </div>
+</div>-->
